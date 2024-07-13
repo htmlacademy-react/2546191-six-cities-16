@@ -96,55 +96,11 @@ function MainScreen({countOfOffers}:MainScreenProps): JSX.Element{
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCard
-                  isPremium
-                  srcImage="img/apartment-01.jpg"
-                  priceForNight={120}
-                  isBookMark= {false}
-                  ratingValue={4}
-                  nameCard="Beautifulluxurious apartment at great location"
-                  typeCard= "Apartment"
-                />
-
-                <PlaceCard
-                  isPremium = {false}
-                  srcImage="img/room.jpg"
-                  priceForNight={80}
-                  isBookMark
-                  ratingValue={4}
-                  nameCard="Wood and stone place"
-                  typeCard= "Room"
-                />
-
-                <PlaceCard
-                  isPremium = {false}
-                  srcImage="img/apartment-02.jpg"
-                  priceForNight={132}
-                  isBookMark= {false}
-                  ratingValue={4}
-                  nameCard="Canal View Prinsengracht"
-                  typeCard= "Apartment"
-                />
-
-                <PlaceCard
-                  isPremium
-                  srcImage="img/apartment-03.jpg"
-                  priceForNight={180}
-                  isBookMark= {false}
-                  ratingValue={5}
-                  nameCard="Nice, cozy, warm big bed apartment"
-                  typeCard= "Apartment"
-                />
-
-                <PlaceCard
-                  isPremium = {false}
-                  srcImage="img/room.jpg"
-                  priceForNight={80}
-                  isBookMark
-                  ratingValue={4}
-                  nameCard="Wood and stone place"
-                  typeCard= "Room"
-                />
+                <PlaceCard isPremium srcImage="img/apartment-01.jpg" priceForNight={120} isBookMark= {false} nameCard="Beautifulluxurious apartment at great location" typeCard= "Apartment"/>
+                <PlaceCard isPremium = {false} srcImage="img/room.jpg" priceForNight={80} isBookMark nameCard="Wood and stone place" typeCard= "Room"/>
+                <PlaceCard isPremium = {false} srcImage="img/apartment-02.jpg" priceForNight={132} isBookMark= {false} nameCard="Canal View Prinsengracht" typeCard= "Apartment"/>
+                <PlaceCard isPremium srcImage="img/apartment-03.jpg" priceForNight={180} isBookMark= {false} nameCard="Nice, cozy, warm big bed apartment" typeCard= "Apartment"/>
+                <PlaceCard isPremium = {false} srcImage="img/room.jpg" priceForNight={80} isBookMark nameCard="Wood and stone place" typeCard= "Room"/>
               </div>
             </section>
             <div className="cities__right-section">
