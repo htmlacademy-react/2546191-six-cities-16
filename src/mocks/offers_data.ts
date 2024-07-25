@@ -13,7 +13,7 @@ export const OFFERS:OfferPreview[] = [
         latitude: 48.85661,
         longitude: 2.351499,
         zoom: 13
-      } 
+      }
     } ,
     location: {
       latitude: 48.868610000000004,

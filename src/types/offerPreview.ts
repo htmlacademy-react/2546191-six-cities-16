@@ -4,7 +4,11 @@ export type OfferPreview = {
     type: string;
     price: number;
     city: City;
-    location:Location;
+    location:{
+        latitude: number;
+        longitude: number;
+        zoom: number;
+    };
     isFavorite: boolean;
     isPremium: boolean;
     rating: number;
