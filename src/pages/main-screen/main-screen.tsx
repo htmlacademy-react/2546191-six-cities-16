@@ -2,6 +2,7 @@ import CityBlock from '../../components/city-block/city-block';
 import HeaderBlock from '../../components/header-block/header-block';
 import PlaceCard from '../../components/place-card/place-card';
 import { OfferPreview } from '../../types/offerPreview';
+import { City } from '../../types/city';
 
 type MainScreenProps = {
   countOfOffers: number;

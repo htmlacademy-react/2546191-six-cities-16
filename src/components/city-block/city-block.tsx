@@ -1,3 +1,5 @@
+import { City } from '../../types/city';
+
 
 type CityBlockProps = Omit<City, 'location'>;
 
