@@ -8,11 +8,18 @@ type PrivateRoute = {
 
 
 function PrivateRoute({authorizationStatus,children}:PrivateRoute) :JSX.Element{
-  return (
-    authorizationStatus === AuthorizationStatus.Auth
-      ? children
-      : <Navigate to = {AppRouter.Login}/>
-  );
+  const isLoginUser = true;
+  //[todo] добавить useLocation();
+
+  if (isLoginUser && authorizationStatus === AuthorizationStatus.NoAuth) {
+    return <Navigate to = {AppRouter.Main}/>;
+  }
+
+  if (!isLoginUser && authorizationStatus === AuthorizationStatus.Auth) {
+    return <Navigate to = {AppRouter.Login}/>;
+  }
+
+  return children;
 }
 
 export default PrivateRoute;

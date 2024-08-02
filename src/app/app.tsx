@@ -6,24 +6,29 @@ import OfferScreen from '../pages/offer-screen/offer-screen';
 import {Route, Routes} from 'react-router-dom';
 import {AppRouter, AuthorizationStatus } from '../shared/constants';
 import PrivateRoute from '../components/private-route/private-route';
-import { OFFERS } from '../mocks/offers_data';
-import { CITIES } from '../mocks/city_data';
+import { OfferPreview } from '../types/offerPreview';
+import { City } from '../types/city';
+import Layout from '../components/layout-block/layout-block';
 
 
 type AppScreanProps = {
   countOffers : number;
+  offers : OfferPreview[];
+  cities : City[];
 }
 
-function App({countOffers}:AppScreanProps) : JSX.Element{
+function App({countOffers, offers, cities}:AppScreanProps) : JSX.Element{
   return (
     <Routes>
-      <Route path={AppRouter.Main} element ={<MainScreen countOfOffers = {countOffers} offers={OFFERS} cities={CITIES} />}/>
-      <Route path={AppRouter.Login} element ={<LoginScreen/> }/>
-      <Route path={AppRouter.Favorites} element ={<PrivateRoute authorizationStatus={AuthorizationStatus.Auth}><FavoritesScreen/></PrivateRoute>}/>
-      <Route path={AppRouter.Offer} element ={<OfferScreen/>}>
-        <Route path=':id' />
+      <Route path={AppRouter.Main} element={<Layout />}>
+        <Route index element ={<MainScreen countOfOffers = {countOffers} offers={offers} cities={cities} />}/>
+        <Route path={AppRouter.Login} element ={<LoginScreen/> }/>
+        <Route path={AppRouter.Favorites} element ={<PrivateRoute authorizationStatus={AuthorizationStatus.Auth}><FavoritesScreen offers={offers}/></PrivateRoute>}/>
+        <Route path={AppRouter.Offer} element ={<OfferScreen />}/>
+        <Route path={AppRouter.OfferId} element ={<OfferScreen />}/>
+        <Route path={AppRouter.NotFound} element ={<ErrorNotFound/>}/>
       </Route>
-      <Route path={AppRouter.NotFound} element ={<ErrorNotFound/>}/>
+
     </Routes>
   );
 }

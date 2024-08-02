@@ -7,17 +7,19 @@ type HeaderBlockProps = {
 
 function HeaderBlock({isShowUserInfo}:HeaderBlockProps) :JSX.Element{
   return (
-    <div className="header__wrapper">
-      <div className="header__left">
-        <Link className="header__logo-link header__logo-link--active" to={AppRouter.Main}>
-          <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-        </Link>
-      </div>
-      { isShowUserInfo &&
+    <header className="header">
+      <div className="container">
+        <div className="header__wrapper">
+          <div className="header__left">
+            <Link className="header__logo-link header__logo-link--active" to={AppRouter.Main}>
+              <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
+            </Link>
+          </div>
+          { isShowUserInfo &&
         <nav className="header__nav">
           <ul className="header__nav-list">
             <li className="header__nav-item user">
-              <Link className="header__nav-link header__nav-link--profile" to={AppRouter.Main}>
+              <Link className="header__nav-link header__nav-link--profile" to={AppRouter.Favorites}>
                 <div className="header__avatar-wrapper user__avatar-wrapper">
                 </div>
                 <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
@@ -31,7 +33,9 @@ function HeaderBlock({isShowUserInfo}:HeaderBlockProps) :JSX.Element{
             </li>
           </ul>
         </nav>}
-    </div>
+        </div>
+      </div>
+    </header>
   );
 }
 
