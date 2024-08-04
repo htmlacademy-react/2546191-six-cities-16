@@ -1,5 +1,5 @@
 type OfferInsideListBlockProps ={
-    goods:[string];
+    goods:string[];
 }
 
 function OfferInsideListBlock ({goods}:OfferInsideListBlockProps) :JSX.Element{

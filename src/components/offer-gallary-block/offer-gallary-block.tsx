@@ -1,5 +1,5 @@
 type OfferGallaryBlockPops ={
-    images:[string];
+    images:string[];
 }
 
 function OfferGallaryBlock ({images}:OfferGallaryBlockPops) :JSX.Element{
