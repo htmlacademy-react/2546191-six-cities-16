@@ -5,6 +5,7 @@ import PremiumBlock from '../premium-block/premium-block';
 import OfferBookMarkBlock from '../offer-bookmark-block/offer-bookmark-block';
 import { useState } from 'react';
 import { upFirstSign } from '../../utils/utils';
+import OfferRatingBlock from '../offer-rating-block/offer-rating-block';
 
 
 type PlaceCardProps = Omit<OfferPreview, 'location'|'city'>;
@@ -34,12 +35,7 @@ function PlaceCard({isPremium,previewImage,price,isFavorite,rating,title,type,id
           </div>
           <OfferBookMarkBlock buttonClassName='place-card__bookmark-button' svgClassName='place-card__bookmark-icon' isFavorite={isFavorite} width={18} height={19} />
         </div>
-        <div className="place-card__rating rating">
-          <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}></span>
-            <span className="visually-hidden">{rating}</span>
-          </div>
-        </div>
+        <OfferRatingBlock rating={rating} className='place-card'/>
         <h2 className="place-card__name" onMouseOver={handleMouseOver}>
           <Link to = {`${AppRouter.Offer}/${id}`}>{title}</Link>
         </h2>

@@ -5,6 +5,7 @@ import { upFirstSign } from '../../utils/utils';
 import OfferBookMarkBlock from '../offer-bookmark-block/offer-bookmark-block';
 import PremiumBlock from '../premium-block/premium-block';
 import { getFavoritesOffers, getOffersGroupByCity } from './utils';
+import OfferRatingBlock from '../offer-rating-block/offer-rating-block';
 
 
 type FavoritesListBlockProps = {
@@ -15,6 +16,7 @@ type FavoritesListBlockProps = {
 function FavoritesListBlock ({offers}:FavoritesListBlockProps) :JSX.Element{
   const favoritesOffers: OfferPreview[] = getFavoritesOffers(offers);
   const favoritesOffersByCity = getOffersGroupByCity(favoritesOffers);
+
 
   const isEmpty:boolean = favoritesOffers.length === 0;
   return(
@@ -42,7 +44,7 @@ function FavoritesListBlock ({offers}:FavoritesListBlockProps) :JSX.Element{
                     </div>
                   </div>
                   <div className="favorites__places">
-                    {favoritesByCity && favoritesByCity.map((offer: { id: string; isPremium: boolean; previewImage: string; price: number; isFavorite: boolean; title: string; type: string })=>(
+                    {(favoritesByCity instanceof Array) && favoritesByCity.map((offer: { id: string; isPremium: boolean; previewImage: string; price: number; isFavorite: boolean; title: string; type: string; rating:number })=>(
                       <article className="favorites__card place-card" key={offer.id}>
                         {offer.isPremium && <PremiumBlock className='place-card__mark' />}
                         <div className="favorites__image-wrapper place-card__image-wrapper">
@@ -53,19 +55,14 @@ function FavoritesListBlock ({offers}:FavoritesListBlockProps) :JSX.Element{
                         <div className="favorites__card-info place-card__info">
                           <div className="place-card__price-wrapper">
                             <div className="place-card__price">
-                              <b className="place-card__price-value">&euro;{offer.price }</b>
+                              <b className="place-card__price-value">&euro;{offer.price}</b>
                               <span className="place-card__price-text">&#47;&nbsp;night</span>
                             </div>
                             <OfferBookMarkBlock buttonClassName='place-card__bookmark-button' svgClassName='place-card__bookmark-icon' isFavorite={offer.isFavorite} width={18} height={19} />
                           </div>
-                          <div className="place-card__rating rating">
-                            <div className="place-card__stars rating__stars">
-                              <span className="width: 100%"></span>
-                              <span className="visually-hidden">Rating</span>
-                            </div>
-                          </div>
+                          {<OfferRatingBlock rating={offer.rating} className='place-card' />}
                           <h2 className="place-card__name">
-                            <a href="#">{offer.title }</a>
+                            <a href="#">{offer.title}</a>
                           </h2>
                           <p className="place-card__type">{upFirstSign(offer.type)}</p>
                         </div>

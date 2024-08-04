@@ -4,11 +4,15 @@ import OfferInsideListBlock from '../../components/offer-inside-list-block/offer
 import PremiumBlock from '../../components/premium-block/premium-block';
 import OfferBookMarkBlock from '../../components/offer-bookmark-block/offer-bookmark-block';
 import { useParams } from 'react-router-dom';
-import { LISTDETAILOFFERS } from '../../mocks/offer_data';
+import { LISTDETAILOFFERS } from '../../mocks/detail_offer_data';
 import { Offer } from '../../types/offer';
 import HostBlock from '../../components/host-block/host-block';
 import OfferRatingBlock from '../../components/offer-rating-block/offer-rating-block';
 import { upFirstSign } from '../../utils/utils';
+import OfferReviewBlock from '../../components/offer-review-block/offer-review-block';
+import { Review } from '../../types/review';
+import { REVIEWS } from '../../mocks/reviews_data';
+import { getOfferReviews } from './utils';
 
 
 function OfferScreen() :JSX.Element{
@@ -16,14 +20,14 @@ function OfferScreen() :JSX.Element{
   let offerId: string;
 
   if (Object.keys(params).length === 0) {
-    offerId = LISTDETAILOFFERS[0].id ;
+    offerId = '';
   } else {
     offerId = params.offerId as string;
   }
 
   const offer = LISTDETAILOFFERS.find((item)=> item.id === offerId) as Offer;
   const currentOffer = {...offer, ...LISTDETAILOFFERS} as Offer;
-
+  const reviews:Review[] = getOfferReviews(REVIEWS,offerId);
   return (
     <Fragment>
       <section className="offer">
@@ -37,7 +41,7 @@ function OfferScreen() :JSX.Element{
               </h1>
               <OfferBookMarkBlock buttonClassName='offer__bookmark-button' svgClassName='offer__bookmark-icon' isFavorite= {currentOffer.isFavorite} width={31} height={33}/>
             </div>
-            {<OfferRatingBlock rating = {currentOffer.rating} />}
+            {<OfferRatingBlock rating = {currentOffer.rating} className='offer' />}
             <ul className="offer__features">
               <li className="offer__feature offer__feature--entire">
                 {upFirstSign(currentOffer.type)}
@@ -55,45 +59,7 @@ function OfferScreen() :JSX.Element{
             </div>
             {currentOffer.goods && <OfferInsideListBlock goods={currentOffer.goods}/>}
             {<HostBlock host={currentOffer.host} description={currentOffer.description} />}
-
-            <section className="offer__reviews reviews">
-              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-              <ul className="reviews__list">
-                <li className="reviews__item">
-                  <div className="reviews__user user">
-                    <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                      <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar"/>
-                    </div>
-                    <span className="reviews__user-name">
-                        Max
-                    </span>
-                  </div>
-                  <div className="reviews__info">
-                    <div className="reviews__rating rating">
-                      <div className="reviews__stars rating__stars">
-                        <span style={{width: '80%'}}></span>
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                    </p>
-                    <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                  </div>
-                </li>
-              </ul>
-              <form className="reviews__form form" action="#" method="post">
-                <label className="reviews__label form__label" htmlFor="review">Your review</label>
-
-                <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
-                <div className="reviews__button-wrapper">
-                  <p className="reviews__help">
-                      To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
-                  </p>
-                  <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
-                </div>
-              </form>
-            </section>
+            <OfferReviewBlock reviews={reviews} />
           </div>
         </div>
         <section className="offer__map map"/>
