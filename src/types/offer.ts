@@ -1,11 +1,12 @@
 import { Host } from './host';
 import { OfferPreview } from './offerPreview';
 
-export type Offer = OfferPreview & {
+
+export type Offer = Omit<OfferPreview, 'previewImage'> & {
     description: string;
     bedrooms: number;
-    goods: [string];
+    goods: string[];
     host: Host;
-    images: [string];
+    images: string[];
     maxAdults: number;
 }

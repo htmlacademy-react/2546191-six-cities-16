@@ -43,7 +43,7 @@ export const OFFERS:OfferPreview[] = [
       longitude: 2.330499,
       zoom: 16
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: true,
     rating: 2
   },
@@ -89,7 +89,7 @@ export const OFFERS:OfferPreview[] = [
       longitude: 2.358499,
       zoom: 16
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: true,
     rating: 3.2
   },
@@ -181,7 +181,7 @@ export const OFFERS:OfferPreview[] = [
       longitude: 2.3454990000000002,
       zoom: 16
     },
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     rating: 2.4
   }
