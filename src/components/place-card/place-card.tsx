@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 import { AppRouter } from '../../shared/constants';
-import { OfferPreview } from '../../types/offerPreview';
 import PremiumBlock from '../premium-block/premium-block';
 import OfferBookMarkBlock from '../offer-bookmark-block/offer-bookmark-block';
 import { useState } from 'react';
 import { upFirstSign } from '../../utils/utils';
 import OfferRatingBlock from '../offer-rating-block/offer-rating-block';
+import { OfferPreview } from '../../types/offerPreview';
 
 
-type PlaceCardProps = Omit<OfferPreview, 'location'|'city'>;
+type PlaceCardProps = OfferPreview;
 
 
 function PlaceCard({isPremium,previewImage,price,isFavorite,rating,title,type,id}:PlaceCardProps): JSX.Element {
