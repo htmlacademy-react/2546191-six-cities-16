@@ -1,8 +1,9 @@
 import CityBlock from '../../components/city-block/city-block';
 import { OfferPreview } from '../../types/offerPreview';
 import { City } from '../../types/city';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import OfferListBlock from '../../components/offers-list-block/offers-list-block';
+import MapBlock from '../../components/map-block/map-block';
 
 type MainScreenProps = {
   countOfOffers: number;
@@ -12,6 +13,7 @@ type MainScreenProps = {
 
 
 function MainScreen({countOfOffers,offers,cities}:MainScreenProps): JSX.Element{
+  const [selectedPoint, setSelectedPoint] = useState<OfferPreview|null> (null);
   return (
     <Fragment>
       <h1 className="visually-hidden">Cities</h1>
@@ -42,10 +44,10 @@ function MainScreen({countOfOffers,offers,cities}:MainScreenProps): JSX.Element{
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            {<OfferListBlock offers={offers} />}
+            {<OfferListBlock offers={offers} onCardHover={setSelectedPoint}/>}
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <MapBlock city = {cities[0]} points={offers} selectedPoint={selectedPoint} extraClassName='cities__map'/>
           </div>
         </div>
       </div>
