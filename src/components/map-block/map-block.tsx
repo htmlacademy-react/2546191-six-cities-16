@@ -5,7 +5,7 @@ import PinActive from './assets/pin-active.svg';
 import Pin from './assets/pin.svg';
 import { OfferPreview } from '../../types/offerPreview';
 import { City } from '../../types/city';
-import useMap from './helpers/useMap';
+import useMap from './helpers/use-map';
 import clsx from 'clsx';
 
 type MapBlockProps = {
