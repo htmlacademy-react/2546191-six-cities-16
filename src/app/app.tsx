@@ -9,6 +9,7 @@ import PrivateRoute from '../components/private-route/private-route';
 import { OfferPreview } from '../types/offerPreview';
 import { City } from '../types/city';
 import Layout from '../components/layout-block/layout-block';
+import { getNearOfferList } from '../utils/utils';
 
 
 type AppScreanProps = {
@@ -18,14 +19,15 @@ type AppScreanProps = {
 }
 
 function App({countOffers, offers, cities}:AppScreanProps) : JSX.Element{
+  const nearOffers:OfferPreview[] = getNearOfferList(offers);
   return (
     <Routes>
       <Route path={AppRouter.Main} element={<Layout />}>
         <Route index element ={<MainScreen countOfOffers = {countOffers} offers={offers} cities={cities} />}/>
         <Route path={AppRouter.Login} element ={<LoginScreen/> }/>
         <Route path={AppRouter.Favorites} element ={<PrivateRoute authorizationStatus={AuthorizationStatus.Auth}><FavoritesScreen offers={offers}/></PrivateRoute>}/>
-        <Route path={AppRouter.Offer} element ={<OfferScreen />}/>
-        <Route path={AppRouter.OfferId} element ={<OfferScreen />}/>
+        <Route path={AppRouter.Offer} element ={<OfferScreen city={cities[0]} nearOffers={nearOffers} />}/>
+        <Route path={AppRouter.OfferId} element ={<OfferScreen city={cities[0]} nearOffers={nearOffers} />}/>
         <Route path={AppRouter.NotFound} element ={<ErrorNotFound/>}/>
       </Route>
 
