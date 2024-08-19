@@ -4,6 +4,7 @@ import { City } from '../../types/city';
 import { Fragment, useState } from 'react';
 import OfferListBlock from '../../components/offers-list-block/offers-list-block';
 import MapBlock from '../../components/map-block/map-block';
+import PlaceCard from '../../components/place-card/place-card';
 
 type MainScreenProps = {
   countOfOffers: number;
@@ -44,7 +45,11 @@ function MainScreen({countOfOffers,offers,cities}:MainScreenProps): JSX.Element{
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            {<OfferListBlock offers={offers} onCardHover={setSelectedPoint}/>}
+            {
+              <OfferListBlock offers={offers} extraClassName='cities__places-list tabs__conten'>
+                {(placeCard)=>(<PlaceCard offer={placeCard} key={placeCard.id} onCardHover={setSelectedPoint} />)}
+              </OfferListBlock>
+            }
           </section>
           <div className="cities__right-section">
             <MapBlock city = {cities[0]} points={offers} selectedPoint={selectedPoint} extraClassName='cities__map'/>

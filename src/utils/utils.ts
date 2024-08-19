@@ -1,3 +1,5 @@
+import { OfferPreview } from '../types/offerPreview';
+
 export function getRatingWidth(rating: number) {
   return `${(rating / 5) * 100}%`;
 }
@@ -17,4 +19,17 @@ export function getBedroomString(count: number) {
 
 export function getAdultString(count: number) {
   return `Max ${count} adult ${count > 1 ? 's' : ''}`;
+}
+
+
+export function getNearOfferList(offers: OfferPreview[]):OfferPreview[] {
+  let random = Math.floor(Math.random() * offers.length);
+  const nearOffers: OfferPreview[] = [];
+  let i: number = 0;
+  while (i < 3) {
+    random = Math.floor(Math.random() * offers.length);
+    nearOffers.push(offers[random]);
+    i++;
+  }
+  return nearOffers;
 }
