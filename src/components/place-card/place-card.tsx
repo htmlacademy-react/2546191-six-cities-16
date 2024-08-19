@@ -1,45 +1,63 @@
 import { Link } from 'react-router-dom';
 import { AppRouter } from '../../shared/constants';
-import { OfferPreview } from '../../types/offerPreview';
 import PremiumBlock from '../premium-block/premium-block';
 import OfferBookMarkBlock from '../offer-bookmark-block/offer-bookmark-block';
 import { useState } from 'react';
 import { upFirstSign } from '../../utils/utils';
 import OfferRatingBlock from '../offer-rating-block/offer-rating-block';
+import { OfferPreview } from '../../types/offerPreview';
 
 
-type PlaceCardProps = Omit<OfferPreview, 'location'|'city'>;
+type PlaceCardProps = {
+  offer:OfferPreview;
+  onCardHover:(offer:OfferPreview|null) => void;
+};
 
 
-function PlaceCard({isPremium,previewImage,price,isFavorite,rating,title,type,id}:PlaceCardProps): JSX.Element {
+function PlaceCard({offer,onCardHover}:PlaceCardProps): JSX.Element {
   const [activeOfferId,setActiveOfferId] = useState('');
 
   const handleMouseOver = () => {
-    setActiveOfferId(id);
-    id = activeOfferId;
+    setActiveOfferId(offer.id);
+    offer.id = activeOfferId;
+  };
+
+  const handleListItemHover = () => {
+    if (onCardHover) {
+      onCardHover(offer);
+    }
+  };
+
+  const handleListItemBlur = ()=> {
+    if (onCardHover) {
+      onCardHover(null);
+    }
   };
 
   return(
-    <article className="cities__card place-card">
-      { isPremium && <PremiumBlock className='place-card__mark' />}
+    <article className="cities__card place-card"
+      onMouseOver={handleListItemHover}
+      onMouseLeave={handleListItemBlur}
+    >
+      { offer.isPremium && <PremiumBlock className='place-card__mark' />}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to = {`${AppRouter.Offer}/${id}`}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
+        <Link to = {`${AppRouter.Offer}/${offer.id}`}>
+          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{price}</b>
+            <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <OfferBookMarkBlock buttonClassName='place-card__bookmark-button' svgClassName='place-card__bookmark-icon' isFavorite={isFavorite} width={18} height={19} />
+          <OfferBookMarkBlock buttonClassName='place-card__bookmark-button' svgClassName='place-card__bookmark-icon' isFavorite={offer.isFavorite} width={18} height={19} />
         </div>
-        <OfferRatingBlock rating={rating} className='place-card'/>
+        <OfferRatingBlock rating={offer.rating} className='place-card'/>
         <h2 className="place-card__name" onMouseOver={handleMouseOver}>
-          <Link to = {`${AppRouter.Offer}/${id}`}>{title}</Link>
+          <Link to = {`${AppRouter.Offer}/${offer.id}`}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{upFirstSign(type)}</p>
+        <p className="place-card__type">{upFirstSign(offer.type)}</p>
       </div>
     </article>
   );

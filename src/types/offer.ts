@@ -2,7 +2,7 @@ import { Host } from './host';
 import { OfferPreview } from './offerPreview';
 
 
-export type Offer = Omit<OfferPreview, 'previewImage'> & {
+export type Offer = OfferPreview& {
     description: string;
     bedrooms: number;
     goods: string[];

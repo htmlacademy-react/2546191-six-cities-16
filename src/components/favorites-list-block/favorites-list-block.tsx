@@ -44,7 +44,7 @@ function FavoritesListBlock ({offers}:FavoritesListBlockProps) :JSX.Element{
                     </div>
                   </div>
                   <div className="favorites__places">
-                    {(favoritesByCity instanceof Array) && favoritesByCity.map((offer: { id: string; isPremium: boolean; previewImage: string; price: number; isFavorite: boolean; title: string; type: string; rating:number })=>(
+                    {(favoritesByCity instanceof Array) && favoritesByCity.map((offer)=>(
                       <article className="favorites__card place-card" key={offer.id}>
                         {offer.isPremium && <PremiumBlock className='place-card__mark' />}
                         <div className="favorites__image-wrapper place-card__image-wrapper">
