@@ -9,18 +9,35 @@ import { getOffersByCity } from './utils';
 import MainEmptyBlock from '../../components/main-empty-block/main-empty-block';
 import CitiesBlock from '../../components/city-block/city-block';
 import CityesListBlock from '../../components/cities-list-block/cities-list-block';
+import SortingListBlock from '../../components/sorting-list-block/sorting-list-block';
+import { SortOption } from '../../shared/constants';
 
 type MainScreenProps = {
-  countOfOffers: number;
   offers:OfferPreview[];
   cities:City[];
 }
 
-function MainScreen({countOfOffers,offers,cities}:MainScreenProps): JSX.Element{
+function MainScreen({offers,cities}:MainScreenProps): JSX.Element{
   const [selectedPoint, setSelectedPoint] = useState<OfferPreview|null> (null);
   const currentCity = useAppSelector((state) => state.OFFERS_SLICE_NAME.offers.currentCity);
-  const offersByCity: OfferPreview[] = getOffersByCity(offers,currentCity);
+  const offersByCity: OfferPreview[] = getOffersByCity(offers,currentCity) || [];
+  const countOfOffers = offersByCity.length;
   const isEmpty:boolean = offersByCity.length === 0;
+  const [activeSort, setActiveSort] = useState(SortOption.Popular);
+
+  let sortedOffers = offersByCity;
+
+  switch (activeSort) {
+    case SortOption.PriceHighToLow:
+      sortedOffers = [...offersByCity].sort((a, b) => b.price - a.price);
+      break;
+    case SortOption.PriceLowToHigh:
+      sortedOffers = [...offersByCity].sort((a, b) => a.price - b.price);
+      break;
+    case SortOption.TopRatedFirst:
+      sortedOffers = [...offersByCity].sort((a, b) => b.rating - a.rating);
+      break;
+  }
   return (
     <Fragment>
       <h1 className="visually-hidden">Cities</h1>
@@ -34,24 +51,10 @@ function MainScreen({countOfOffers,offers,cities}:MainScreenProps): JSX.Element{
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{countOfOffers} places to stay in Amsterdam</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                            Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
+              <b className="places__found">{countOfOffers} places to stay in {currentCity}</b>
+              <SortingListBlock setter={setActiveSort} current={activeSort}/>
               {
-                <OfferListBlock offers={offersByCity} extraClassName='cities__places-list tabs__conten'>
+                <OfferListBlock offers={sortedOffers} extraClassName='cities__places-list tabs__conten'>
                   {(placeCard)=>(<PlaceCard offer={placeCard} key={placeCard.id} onCardHover={setSelectedPoint} />)}
                 </OfferListBlock>
               }

@@ -14,17 +14,16 @@ import { useAppSelector } from '../store/hook/useAppSelector';
 
 
 type AppScreanProps = {
-  countOffers : number;
   cities : City[];
 }
 
-function App({countOffers, cities}:AppScreanProps) : JSX.Element{
+function App({cities}:AppScreanProps) : JSX.Element{
   const offers: OfferPreview[] = useAppSelector((state) => state.OFFERS_SLICE_NAME.offers.offers);
   const nearOffers:OfferPreview[] = getNearOfferList(offers);
   return (
     <Routes>
       <Route path={AppRouter.Main} element={<Layout />}>
-        <Route index element ={<MainScreen countOfOffers = {countOffers} offers={offers} cities={cities} />}/>
+        <Route index element ={<MainScreen offers={offers} cities={cities} />}/>
         <Route path={AppRouter.Login} element ={<LoginScreen/> }/>
         <Route path={AppRouter.Favorites} element ={<PrivateRoute authorizationStatus={AuthorizationStatus.Auth}><FavoritesScreen offers={offers}/></PrivateRoute>}/>
         <Route path={AppRouter.Offer} element ={<OfferScreen city={cities[0]} nearOffers={nearOffers} />}/>
