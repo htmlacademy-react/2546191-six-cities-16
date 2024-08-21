@@ -10,15 +10,16 @@ import { OfferPreview } from '../types/offerPreview';
 import { City } from '../types/city';
 import Layout from '../components/layout-block/layout-block';
 import { getNearOfferList } from '../utils/utils';
+import { useAppSelector } from '../store/hook/useAppSelector';
 
 
 type AppScreanProps = {
   countOffers : number;
-  offers : OfferPreview[];
   cities : City[];
 }
 
-function App({countOffers, offers, cities}:AppScreanProps) : JSX.Element{
+function App({countOffers, cities}:AppScreanProps) : JSX.Element{
+  const offers: OfferPreview[] = useAppSelector((state) => state.OFFERS_SLICE_NAME.offers.offers);
   const nearOffers:OfferPreview[] = getNearOfferList(offers);
   return (
     <Routes>
