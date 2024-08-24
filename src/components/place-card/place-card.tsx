@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { AppRouter } from '../../shared/constants';
 import PremiumBlock from '../premium-block/premium-block';
 import OfferBookMarkBlock from '../offer-bookmark-block/offer-bookmark-block';
-import { useState } from 'react';
 import { upFirstSign } from '../../utils/utils';
 import OfferRatingBlock from '../offer-rating-block/offer-rating-block';
 import { OfferPreview } from '../../types/offerPreview';
@@ -15,12 +14,6 @@ type PlaceCardProps = {
 
 
 function PlaceCard({offer,onCardHover}:PlaceCardProps): JSX.Element {
-  const [activeOfferId,setActiveOfferId] = useState('');
-
-  const handleMouseOver = () => {
-    setActiveOfferId(offer.id);
-    offer.id = activeOfferId;
-  };
 
   const handleListItemHover = () => {
     if (onCardHover) {
@@ -54,7 +47,7 @@ function PlaceCard({offer,onCardHover}:PlaceCardProps): JSX.Element {
           <OfferBookMarkBlock buttonClassName='place-card__bookmark-button' svgClassName='place-card__bookmark-icon' isFavorite={offer.isFavorite} width={18} height={19} />
         </div>
         <OfferRatingBlock rating={offer.rating} className='place-card'/>
-        <h2 className="place-card__name" onMouseOver={handleMouseOver}>
+        <h2 className="place-card__name">
           <Link to = {`${AppRouter.Offer}/${offer.id}`}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{upFirstSign(offer.type)}</p>

@@ -19,7 +19,8 @@ type MainScreenProps = {
 
 function MainScreen({offers,cities}:MainScreenProps): JSX.Element{
   const [selectedPoint, setSelectedPoint] = useState<OfferPreview|null> (null);
-  const currentCity = useAppSelector((state) => state.OFFERS_SLICE_NAME.offers.currentCity);
+  const currentCity = useAppSelector((state) => state.offers.currentCity);
+
   const offersByCity: OfferPreview[] = getOffersByCity(offers,currentCity) || [];
   const countOfOffers = offersByCity.length;
   const isEmpty:boolean = offersByCity.length === 0;
