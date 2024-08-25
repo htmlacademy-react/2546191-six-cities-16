@@ -54,4 +54,7 @@ export enum RequestStatus {
 
 }
 
-
+export enum Endpoint {
+    Logout = 'logout',
+    Login ='login'
+}

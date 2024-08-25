@@ -1,7 +1,6 @@
+import { OFFERS_SLICE_NAME } from '.';
 import { OfferPreview } from '../../types/offerPreview';
 import { createAppAsyncThunk } from '../hook/createAppAsyncThunk';
-
-const OFFERS_SLICE_NAME = 'offers';
 
 export const fetchOffersAction = createAppAsyncThunk<OfferPreview[], void>(
   `${OFFERS_SLICE_NAME}/fetchOffers`,

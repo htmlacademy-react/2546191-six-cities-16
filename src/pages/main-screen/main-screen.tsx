@@ -21,7 +21,7 @@ function MainScreen({offers,cities}:MainScreenProps): JSX.Element{
   const [selectedPoint, setSelectedPoint] = useState<OfferPreview|null> (null);
   const currentCity = useAppSelector((state) => state.offers.currentCity);
 
-  const offersByCity: OfferPreview[] = getOffersByCity(offers,currentCity) || [];
+  const offersByCity: OfferPreview[] = getOffersByCity(offers,currentCity.name) || [];
   const countOfOffers = offersByCity.length;
   const isEmpty:boolean = offersByCity.length === 0;
   const [activeSort, setActiveSort] = useState(SortOption.Popular);
@@ -43,7 +43,7 @@ function MainScreen({offers,cities}:MainScreenProps): JSX.Element{
     <Fragment>
       <h1 className="visually-hidden">Cities</h1>
       <CityesListBlock cities={cities}>
-        {(city)=>(<CitiesBlock name={city.name} isEqual={city.name === currentCity} key={city.name}/>)}
+        {(city)=>(<CitiesBlock city={city} isEqual={city.name === currentCity.name} key={city.name}/>)}
       </CityesListBlock>
       {isEmpty ? (
         <MainEmptyBlock/>
@@ -52,7 +52,7 @@ function MainScreen({offers,cities}:MainScreenProps): JSX.Element{
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{countOfOffers} places to stay in {currentCity}</b>
+              <b className="places__found">{countOfOffers} places to stay in {currentCity.name}</b>
               <SortingListBlock setter={setActiveSort} current={activeSort}/>
               {
                 <OfferListBlock offers={sortedOffers} extraClassName='cities__places-list tabs__conten'>
@@ -61,7 +61,7 @@ function MainScreen({offers,cities}:MainScreenProps): JSX.Element{
               }
             </section>
             <div className="cities__right-section">
-              <MapBlock city = {cities[0]} points={offers} selectedPoint={selectedPoint} extraClassName='cities__map'/>
+              <MapBlock city = {currentCity} points={offers} selectedPoint={selectedPoint} extraClassName='cities__map'/>
             </div>
           </div>
         </div>
