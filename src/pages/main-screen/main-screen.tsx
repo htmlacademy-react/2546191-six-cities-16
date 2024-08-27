@@ -11,6 +11,7 @@ import CitiesBlock from '../../components/city-block/city-block';
 import CityesListBlock from '../../components/cities-list-block/cities-list-block';
 import SortingListBlock from '../../components/sorting-list-block/sorting-list-block';
 import { SortOption } from '../../shared/constants';
+import { RootState } from '../../store';
 
 type MainScreenProps = {
   offers:OfferPreview[];
@@ -19,7 +20,7 @@ type MainScreenProps = {
 
 function MainScreen({offers,cities}:MainScreenProps): JSX.Element{
   const [selectedPoint, setSelectedPoint] = useState<OfferPreview|null> (null);
-  const currentCity = useAppSelector((state) => state.offers.currentCity);
+  const currentCity: City = useAppSelector<City>((state:RootState) => state.offers.currentCity);
 
   const offersByCity: OfferPreview[] = getOffersByCity(offers,currentCity.name) || [];
   const countOfOffers = offersByCity.length;

@@ -11,7 +11,7 @@ type LoginData= {
 
 export const checkAuth = createAppAsyncThunk<User, undefined>(
   `${USER_SLICE_NAME}/checkAuth`,
-  async (_arg, { extra: api }) => {
+  async (_, { extra: api }) => {
     const response = await api.get<User>(Endpoint.Login);
     return response.data;
   }
@@ -27,12 +27,12 @@ export const login = createAppAsyncThunk<User, LoginData>(
   }
 );
 
-/*
+
 export const logout = createAppAsyncThunk<unknown, undefined>(
-    `${USER_SLICE_NAME}/logout`,
-    async (_arg, { extra: api }) => {
-      await api.delete(Endpoint.Logout);
-    }
-  );
-  */
+  `${USER_SLICE_NAME}/logout`,
+  async (_arg, { extra: api }) => {
+    await api.delete(Endpoint.Logout);
+  }
+);
+
 

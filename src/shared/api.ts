@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 import { BACKEND_URL, REQUEST_TIMEOUT } from './constants';
+import { getToken } from './token';
 
 type DetailMessageType = {
     type: string;
@@ -13,7 +14,7 @@ export const createAPI = (): AxiosInstance => {
     timeout: REQUEST_TIMEOUT
   });
   api.interceptors.request.use((config:InternalAxiosRequestConfig)=>{
-    config.headers['x-token'] = 'T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=';
+    config.headers['x-token'] = getToken();
     return config;
   });
   api.interceptors.response.use(

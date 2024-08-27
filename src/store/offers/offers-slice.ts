@@ -2,10 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { OfferState } from './types';
 import { CITIES } from '../../mocks/city_data';
 import { OfferPreview } from '../../types/offerPreview';
-import { fetchOffersAction } from './offer-thunk';
+import { fetchOffersAction } from './offers-thunk';
 import { RequestStatus } from '../../shared/constants';
 import { City } from '../../types/city';
-import { OFFERS_SLICE_NAME } from '.';
 
 
 const initialState:OfferState = {
@@ -15,7 +14,7 @@ const initialState:OfferState = {
 };
 
 export const offersSlice = createSlice({
-  name: OFFERS_SLICE_NAME,
+  name: 'offers',
   initialState,
   reducers: {
     setCurrentCity:(state, action: PayloadAction<City>) =>{

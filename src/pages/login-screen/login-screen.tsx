@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { useAppDispatch } from '../../store/hook/useAppDispatch';
 import { login } from '../../store/user/user-thunk';
 
+
 function LoginScreen() :JSX.Element{
   const [formData, setFormData] = useState({email:'',password:''});
   const dispatch = useAppDispatch();
-  
+
   const handlChange = (event: React.ChangeEvent<HTMLInputElement>) =>{
     setFormData({...formData,[event.target.name]:event.target.value});
   };
@@ -15,6 +16,7 @@ function LoginScreen() :JSX.Element{
     dispatch(login(formData));
   };
   return (
+
     <div className="page__login-container container">
       <section className="login">
         <h1 className="login__title">Sign in</h1>

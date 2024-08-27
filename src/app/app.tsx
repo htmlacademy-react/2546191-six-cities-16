@@ -4,7 +4,7 @@ import LoginScreen from '../pages/login-screen/login-screen';
 import MainScreen from '../pages/main-screen/main-screen';
 import OfferScreen from '../pages/offer-screen/offer-screen';
 import {Route, Routes} from 'react-router-dom';
-import {AppRouter, AuthorizationStatus} from '../shared/constants';
+import {AppRouter, AuthorizationStatus, RequestStatus} from '../shared/constants';
 import PrivateRoute from '../components/private-route/private-route';
 import { OfferPreview } from '../types/offerPreview';
 import { City } from '../types/city';
@@ -13,8 +13,10 @@ import { getNearOfferList } from '../utils/utils';
 import { useAppSelector } from '../store/hook/useAppSelector';
 import { useAppDispatch } from '../store/hook/useAppDispatch';
 import { useEffect } from 'react';
-import { fetchOffersAction } from '../store/offers/offer-thunk';
+import { fetchOffersAction } from '../store/offers/offers-thunk';
 import LoadingBlock from '../components/loading-block/loading-block';
+import { checkAuth } from '../store/user/user-thunk';
+import { getToken } from '../shared/token';
 
 
 type AppScreanProps = {
@@ -23,15 +25,19 @@ type AppScreanProps = {
 
 function App({cities}:AppScreanProps) : JSX.Element{
   const dispatch = useAppDispatch();
+  const token = getToken();
   useEffect(()=>{
     dispatch(fetchOffersAction());
-  },[]);
+    if (token){
+      dispatch(checkAuth());
+    }
+  },[token]);
 
-  const isLoading = useAppSelector((state) => state.offers.requestStatus);
-  const offers: OfferPreview[] = useAppSelector((state) => state.offers.offers);
+  const isLoading:RequestStatus = useAppSelector<RequestStatus>((state) => state.offers.requestStatus);
+  const offers: OfferPreview[] = useAppSelector<OfferPreview[]>((state) => state.offers.offers);
   const nearOffers:OfferPreview[] = getNearOfferList(offers);
 
-  if (isLoading === 'Loading') {
+  if (isLoading === RequestStatus.Loading) {
     return (
       <LoadingBlock />
     );

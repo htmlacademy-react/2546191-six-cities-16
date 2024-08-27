@@ -5,10 +5,9 @@ import { userSlice } from './user/user-slice';
 
 
 const rootReducers = combineReducers({
-  [offersSlice.name]: offersSlice.reducer,
-  [userSlice.name]: userSlice.reducer
+  'offers': offersSlice.reducer,
+  'user': userSlice.reducer,
 });
-
 
 const api = createAPI();
 
