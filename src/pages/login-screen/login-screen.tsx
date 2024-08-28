@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import { useAppDispatch } from '../../store/hook/useAppDispatch';
 import { login } from '../../store/user/user-thunk';
+import { AppRouter } from '../../shared/constants';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 
 
 function LoginScreen() :JSX.Element{
+  const navigate = useNavigate();
+  const isLoading = useAuth();
   const [formData, setFormData] = useState({email:'',password:''});
   const dispatch = useAppDispatch();
 
@@ -14,6 +19,10 @@ function LoginScreen() :JSX.Element{
   const handlSibmit = (event: React.FormEvent<HTMLFormElement>) =>{
     event.preventDefault();
     dispatch(login(formData));
+    if(isLoading) {
+      navigate(AppRouter.Main);
+    }
+
   };
   return (
 
