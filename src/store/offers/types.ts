@@ -6,4 +6,5 @@ export type OfferState = {
     currentCity:City;
     offers:OfferPreview[];
     requestStatus:RequestStatus;
+
 }

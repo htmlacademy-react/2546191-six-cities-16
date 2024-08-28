@@ -19,6 +19,7 @@ import { checkAuth } from '../store/user/user-thunk';
 import { getToken } from '../shared/token';
 
 
+
 type AppScreanProps = {
   cities : City[];
 }
@@ -38,6 +39,7 @@ function App({cities}:AppScreanProps) : JSX.Element{
   const nearOffers:OfferPreview[] = getNearOfferList(offers);
 
   if (isLoading === RequestStatus.Loading) {
+
     return (
       <LoadingBlock />
     );

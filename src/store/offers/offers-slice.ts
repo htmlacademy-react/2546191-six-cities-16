@@ -7,8 +7,10 @@ import { RequestStatus } from '../../shared/constants';
 import { City } from '../../types/city';
 
 
+
 const initialState:OfferState = {
   currentCity: CITIES[0],
+
   offers: [],
   requestStatus:RequestStatus.Idle
 };

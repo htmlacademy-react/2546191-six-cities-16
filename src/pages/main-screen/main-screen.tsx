@@ -20,9 +20,10 @@ type MainScreenProps = {
 
 function MainScreen({offers,cities}:MainScreenProps): JSX.Element{
   const [selectedPoint, setSelectedPoint] = useState<OfferPreview|null> (null);
-  const currentCity: City = useAppSelector<City>((state:RootState) => state.offers.currentCity);
 
+  const currentCity: City = useAppSelector<City>((state:RootState) => state.offers.currentCity);
   const offersByCity: OfferPreview[] = getOffersByCity(offers,currentCity.name) || [];
+
   const countOfOffers = offersByCity.length;
   const isEmpty:boolean = offersByCity.length === 0;
   const [activeSort, setActiveSort] = useState(SortOption.Popular);

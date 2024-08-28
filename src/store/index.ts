@@ -9,6 +9,7 @@ const rootReducers = combineReducers({
   'user': userSlice.reducer,
 });
 
+
 const api = createAPI();
 
 export const store = configureStore({
