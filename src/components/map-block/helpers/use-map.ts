@@ -10,8 +10,11 @@ type UseMapProps = {
 const useMap = ({city, mapRef }: UseMapProps) => {
   const [map, setMap] = useState<leaflet.Map | null>(null);
   const isRenderedRef = useRef(false);
-
   useEffect(() => {
+    map?.flyTo({
+      lat: city.location.latitude,
+      lng: city.location.longitude,
+    });
     if (mapRef.current !== null && !isRenderedRef.current) {
       const instance = leaflet.map(mapRef.current, {
         center: {

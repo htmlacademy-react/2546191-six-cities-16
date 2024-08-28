@@ -19,7 +19,6 @@ type MapBlockProps = {
 function MapBlock({extraClassName,city,points,selectedPoint}: MapBlockProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap({city, mapRef});
-
   const defaultCustomIcon = leaflet.icon({
     iconUrl: Pin,
     iconSize: [40, 40],

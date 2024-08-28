@@ -1,28 +1,29 @@
 import clsx from 'clsx';
 import { useAppDispatch } from '../../store/hook/useAppDispatch';
 import { setCurrentCity } from '../../store/offers/offers-slice';
+import { City } from '../../types/city';
 
 
 type CityBlockProps = {
-  name:string;
+  city:City;
   isEqual:boolean;
 }
 
-function CitiesBlock ({name,isEqual}:CityBlockProps) :JSX.Element{
+function CitiesBlock ({city,isEqual}:CityBlockProps) :JSX.Element{
   const dispatch = useAppDispatch();
 
-  function onCityClickHandler(evt: React.MouseEvent<HTMLElement>, cityName: string): void {
+  function onCityClickHandler(evt: React.MouseEvent<HTMLElement>, selectedCity: City): void {
     evt.preventDefault();
-    dispatch(setCurrentCity(cityName));
+    dispatch(setCurrentCity(selectedCity));
   }
   return(
     <li className="locations__item">
       <a
         className={clsx('locations__item-link tabs__item',isEqual && 'tabs__item--active')}
         href="#"
-        onClick={(evt) => onCityClickHandler(evt,name)}
+        onClick={(evt) => onCityClickHandler(evt,city)}
       >
-        <span>{name}</span>
+        <span>{city.name}</span>
       </a>
     </li>
   );

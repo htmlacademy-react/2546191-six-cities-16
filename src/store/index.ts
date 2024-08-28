@@ -1,10 +1,12 @@
 import { combineReducers, configureStore} from '@reduxjs/toolkit';
 import { offersSlice } from './offers/offers-slice';
 import { createAPI } from '../shared/api';
+import { userSlice } from './user/user-slice';
 
 
 const rootReducers = combineReducers({
-  [offersSlice.name]: offersSlice.reducer
+  'offers': offersSlice.reducer,
+  'user': userSlice.reducer,
 });
 
 

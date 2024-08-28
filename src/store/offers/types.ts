@@ -1,7 +1,10 @@
+import { RequestStatus } from '../../shared/constants';
+import { City } from '../../types/city';
 import { OfferPreview } from '../../types/offerPreview';
 
 export type OfferState = {
-    currentCity:string;
+    currentCity:City;
     offers:OfferPreview[];
-    requestStatus:string;
+    requestStatus:RequestStatus;
+
 }

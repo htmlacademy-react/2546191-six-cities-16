@@ -1,9 +1,9 @@
-import { User } from './user';
+import { Host } from './host';
 
 export type Review = {
     id: string;
     comment: string;
     date: string ;
     rating: number;
-    user: User;
+    user: Host;
     }

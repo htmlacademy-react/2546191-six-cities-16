@@ -5,9 +5,7 @@ import { AppRouter } from '../../shared/constants';
 import { getLayoutState } from './helper';
 import clsx from 'clsx';
 
-
 function LayoutBlock() :JSX.Element{
-
   const {pathname} = useLocation();
   const {pageClassName, mainClassName, isShowUserInfo, isShowFooter} = getLayoutState(pathname as AppRouter);
 
